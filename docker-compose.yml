@@ -1,0 +1,25 @@
+www:
+  build: ./etc/www/
+  volumes:
+    - ./backend/:/var/www/html/
+    - ./etc/www/php.ini:/usr/local/etc/php/php.ini
+  links:
+    - mysql
+    - smtp
+  ports:
+    - "80:80"
+
+mysql:
+  image: mysql:5.7.9
+  environment:
+    MYSQL_ROOT_PASSWORD: hangar
+    MYSQL_DATABASE: hangar
+  ports:
+    - "3306:3306"
+
+smtp:
+  image: mailhog/mailhog
+  ports:
+    - 8025
+  environment:
+    MH_SMTP_BIND_ADDR: 0.0.0.0:25

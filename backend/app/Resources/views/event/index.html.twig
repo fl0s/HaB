@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% set page = 'event' %}
+{% block title %}Événements{% endblock %}
+{% block pageTitle %}Événements{% endblock %}
+
+{% block body %}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Intervention</th>
+                                    <th>Évacuation</th>
+                                    <th></th>
+                                </tr>
+                                {% for event in events %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('event-detail', {'id': event.id}) }}">{{ event.date | date('d/m/Y') }}</a>
+                                        </td>
+                                        <td>
+                                            {{ event.rescues | length }}
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
