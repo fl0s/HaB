@@ -36,6 +36,18 @@ class Rescue
     private $transport = false;
 
     /**
+     * @var float
+     * @ORM\Column(type="float")
+     */
+    private $lon;
+
+    /**
+     * @var float
+     * @ORM\Column(type="float")
+     */
+    private $lat;
+
+    /**
      * @var Event
      * @ORM\ManyToOne(targetEntity="Event", inversedBy="rescues")
      */
@@ -111,5 +123,37 @@ class Rescue
     public function setEvent($event)
     {
         $this->event = $event;
+    }
+
+    /**
+     * @return float
+     */
+    public function getLon()
+    {
+        return $this->lon;
+    }
+
+    /**
+     * @param float $lon
+     */
+    public function setLon($lon)
+    {
+        $this->lon = $lon;
+    }
+
+    /**
+     * @return float
+     */
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
+    /**
+     * @param float $lat
+     */
+    public function setLat($lat)
+    {
+        $this->lat = $lat;
     }
 }
