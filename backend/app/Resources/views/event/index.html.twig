@@ -3,6 +3,9 @@
 {% set page = 'event' %}
 {% block title %}Événements{% endblock %}
 {% block pageTitle %}Événements{% endblock %}
+{% block pageSubTitle %}
+    <a href="{{ path('event-create') }}" class="btn btn-success btn-xs">Ajouter</a>
+{% endblock %}
 
 {% block body %}
     <section class="content">

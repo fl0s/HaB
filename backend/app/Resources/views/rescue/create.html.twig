@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% set page = 'event' %}
+{% block title %}Intervention{% endblock %}
+{% block pageTitle %}Intervention{% endblock %}
+{% block pageSubTitle %}Création{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <form action="{{ path('rescue-create', {'id': event.id}) }}" method="post">
+                <div class="box-body">
+                    {{ form_errors(form) }}
+                    {{ form_row(form.time) }}
+                    {{ form_row(form.type) }}
+                    {{ form_row(form.transport) }}
+                    {{ form_rest(form) }}
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+{% block javascripts %}{% endblock %}

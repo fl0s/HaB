@@ -36,6 +36,11 @@ class Event
      */
     private $rescues;
 
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
+
     /**
      * @return int
      */

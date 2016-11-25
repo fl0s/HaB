@@ -37,13 +37,13 @@ class Rescue
 
     /**
      * @var float
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $lon;
 
     /**
      * @var float
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $lat;
 

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% set page = 'event' %}
+{% block title %}Événements{% endblock %}
+{% block pageTitle %}Événements{% endblock %}
+{% block pageSubTitle %}Création{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <form action="{{ path('event-create') }}" method="post">
+                <div class="box-body">
+                    {{ form_errors(form) }}
+                    {{ form_row(form.date) }}
+                    {{ form_row(form.description) }}
+                    {{ form_rest(form) }}
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+{% block javascripts %}{% endblock %}

@@ -22,6 +22,40 @@ class EventController extends Controller
     }
 
     /**
+     * @Route("/event/create", name="event-create")
+     */
+    public function createAction(Request $request)
+    {
+        $event = new Event();
+
+        $form = $this->createFormBuilder($event)
+            ->add('date', 'date', [
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
+                'placeholder' => 'jj/mm/aaaa',
+            ])
+            ->add('description', 'textarea', [
+                'required' => false,
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $om = $this->getDoctrine()->getManager();
+
+            $om->persist($event);
+            $om->flush($event);
+
+            return $this->redirectToRoute('event-list');
+        }
+
+        return $this->render('event/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/event/{id}/rescue/", name="event-detail")
      */
     public function rescueAction(Event $event)
