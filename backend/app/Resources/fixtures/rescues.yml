@@ -1,0 +1,5 @@
+AppBundle\Entity\Rescue:
+    rescue_one:
+        time: <dateTimeThisYear()>
+        type: @type_intox
+        event: @first_event

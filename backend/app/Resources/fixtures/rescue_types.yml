@@ -1,0 +1,9 @@
+AppBundle\Entity\RescueType:
+    type_trauma:
+        name: Traumatisme
+    type_malaise:
+        name: Malaise
+    type_intox:
+        name: Intoxication
+    type_plaie:
+        name: Plaie
