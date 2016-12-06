@@ -60,4 +60,19 @@ class RescueController extends Controller
             'rescue' => $rescue,
         ]);
     }
+
+    /**
+     * @Route("/rescue/{id}/remove", name="rescue-delete")
+     */
+    public function removeAction(Rescue $rescue)
+    {
+        $eventId = $rescue->getEvent()->getId();
+
+        $om = $this->getDoctrine()->getManager();
+
+        $om->remove($rescue);
+        $om->flush();
+
+        return $this->redirectToRoute('event-detail', ['id' => $eventId]);
+    }
 }

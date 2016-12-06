@@ -3,7 +3,102 @@
 {% set page = 'stat' %}
 
 {% block body %}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Type d'intervention</h3>
+                </div>
+                <div class="box-body">
+                    <canvas id="typeChart" width="200" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Provenance</h3>
+                </div>
+                <div class="box-body">
+                    <canvas id="fromChart" width="200" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Évacuation</h3>
+                </div>
+                <div class="box-body">
+                    <canvas id="transportChart" width="200" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            colors = ["#3c8dbc",
+                "#f56954",
+                "#00a65a",
+                "#00c0ef",
+                "#f39c12",
+                "#0073b7",
+                "#001F3F",
+                "#39CCCC",
+                "#3D9970",
+                "#01FF70",
+                "#FF851B",
+                "#F012BE",
+                "#8E24AA",
+                "#D81B60",
+                "#222222",
+                "#d2d6de"
+            ];
+
+            new Chart($("#typeChart"),{
+                type: 'pie',
+                data: {
+                    labels: {{ types | keys |json_encode|raw }},
+                    datasets: [
+                        {
+                            data: [{{ types | join(',') }}],
+                            backgroundColor: colors,
+                            hoverBackgroundColor: colors,
+                        }]
+                },
+            });
+
+            new Chart($("#transportChart"),{
+                type: 'pie',
+                data: {
+                    labels: {{ transport | keys |json_encode|raw }},
+                    datasets: [
+                        {
+                            data: [{{ transport | join(',') }}],
+                            backgroundColor: colors,
+                            hoverBackgroundColor: colors,
+                        }]
+                },
+            });
+
+            new Chart($("#fromChart"),{
+                type: 'pie',
+                data: {
+                    labels: {{ provider | keys |json_encode|raw }},
+                    datasets: [
+                        {
+                            data: [{{ provider | join(',') }}],
+                            backgroundColor: colors,
+                            hoverBackgroundColor: colors,
+                        }]
+                },
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block stylesheets %}{% endblock %}

@@ -3,3 +3,4 @@ AppBundle\Entity\Rescue:
         time: <dateTimeThisYear()>
         type: @type_intox
         event: @first_event
+        provider: @provider_sp

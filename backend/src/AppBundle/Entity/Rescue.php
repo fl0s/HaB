@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\RescueRepository")
  */
 class Rescue
 {
@@ -46,6 +46,12 @@ class Rescue
      * @ORM\Column(type="float", nullable=true)
      */
     private $lat;
+
+    /**
+     * @var RescueProvider
+     * @ORM\ManyToOne(targetEntity="RescueProvider")
+     */
+    private $provider;
 
     /**
      * @var Event
@@ -155,5 +161,21 @@ class Rescue
     public function setLat($lat)
     {
         $this->lat = $lat;
+    }
+
+    /**
+     * @return RescueProvider
+     */
+    public function getProvider()
+    {
+        return $this->provider;
+    }
+
+    /**
+     * @param RescueProvider $provider
+     */
+    public function setProvider($provider)
+    {
+        $this->provider = $provider;
     }
 }

@@ -21,6 +21,7 @@
                         <tr>
                             <th>Heure</th>
                             <th>Type</th>
+                            <th>Provenance</th>
                             <th>Évacuation</th>
                             <th></th>
                         </tr>
@@ -31,6 +32,9 @@
                                 </td>
                                 <td>
                                     {{ rescue.type.name }}
+                                </td>
+                                <td>
+                                    {{ rescue.provider.name }}
                                 </td>
                                 <td>
                                     {% if rescue.transport %}
@@ -45,6 +49,9 @@
                                     </a>
                                     <a href="{{ path('rescue-edit', {'id': rescue.id}) }}">
                                         <i class="fa fa-pencil-square-o"></i>
+                                    </a>
+                                    <a href="{{ path('rescue-delete', {'id': rescue.id}) }}">
+                                        <i class="fa fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -69,20 +76,20 @@
     <div class="col-md-4">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Évacuation</h3>
+                <h3 class="box-title">Provenance</h3>
             </div>
             <div class="box-body">
-                <canvas id="transportChart" width="200" height="200"></canvas>
+                <canvas id="fromChart" width="200" height="200"></canvas>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Provenance</h3>
+                <h3 class="box-title">Évacuation</h3>
             </div>
             <div class="box-body">
-                <canvas id="fromChart" width="200" height="200"></canvas>
+                <canvas id="transportChart" width="200" height="200"></canvas>
             </div>
         </div>
     </div>
@@ -106,6 +113,24 @@
 {% block javascripts %}
 <script type="text/javascript">
     $(document).ready(function () {
+
+        colors = ["#3c8dbc",
+            "#f56954",
+            "#00a65a",
+            "#00c0ef",
+            "#f39c12",
+            "#0073b7",
+            "#001F3F",
+            "#39CCCC",
+            "#3D9970",
+            "#01FF70",
+            "#FF851B",
+            "#F012BE",
+            "#8E24AA",
+            "#D81B60",
+            "#222222",
+            "#d2d6de"
+        ];
 
         mymap = L.map('mapid').setView([47.204, -1.567], 15);
         marker = undefined;
@@ -139,16 +164,8 @@
                 datasets: [
                     {
                         data: [{{ types | join(',') }}],
-                        backgroundColor: [
-                            "#FF6384",
-                            "#36A2EB",
-                            "#FFCE56"
-                        ],
-                        hoverBackgroundColor: [
-                            "#FF6384",
-                            "#36A2EB",
-                            "#FFCE56"
-                        ]
+                        backgroundColor: colors,
+                        hoverBackgroundColor: colors,
                     }]
             },
         });
@@ -160,16 +177,8 @@
                 datasets: [
                     {
                         data: [{{ transport | join(',') }}],
-                        backgroundColor: [
-                            "#FF6384",
-                            "#36A2EB",
-                            "#FFCE56"
-                        ],
-                        hoverBackgroundColor: [
-                            "#FF6384",
-                            "#36A2EB",
-                            "#FFCE56"
-                        ]
+                        backgroundColor: colors,
+                        hoverBackgroundColor: colors,
                     }]
             },
         });
@@ -177,20 +186,12 @@
         new Chart($("#fromChart"),{
             type: 'pie',
             data: {
-                labels: {{ from | keys |json_encode|raw }},
+                labels: {{ provider | keys |json_encode|raw }},
                 datasets: [
                     {
-                        data: [{{ from | join(',') }}],
-                        backgroundColor: [
-                            "#FF6384",
-                            "#36A2EB",
-                            "#FFCE56"
-                        ],
-                        hoverBackgroundColor: [
-                            "#FF6384",
-                            "#36A2EB",
-                            "#FFCE56"
-                        ]
+                        data: [{{ provider | join(',') }}],
+                        backgroundColor: colors,
+                        hoverBackgroundColor: colors,
                     }]
             },
         });

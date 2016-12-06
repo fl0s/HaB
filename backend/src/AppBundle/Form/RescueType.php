@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Rescue;
+use AppBundle\Entity\RescueProvider;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
@@ -21,7 +22,11 @@ class RescueType extends AbstractType
                 'class' => RTE::class,
                 'choice_label' => 'name',
             ])
-            ->add('transport');
+            ->add('transport')
+            ->add('provider', EntityType::class, [
+                'class' => RescueProvider::class,
+                'choice_label' => 'name',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

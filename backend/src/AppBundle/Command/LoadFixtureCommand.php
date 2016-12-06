@@ -20,6 +20,7 @@ class LoadFixtureCommand extends ContainerAwareCommand
 
         $objects = $fm->loadFiles([
             $baseDir . 'rescue_types.yml',
+            $baseDir . 'rescue_providers.yml',
             $baseDir . 'events.yml',
             $baseDir . 'rescues.yml',
         ]);

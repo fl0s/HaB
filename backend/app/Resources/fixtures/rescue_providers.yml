@@ -1,0 +1,10 @@
+AppBundle\Entity\RescueProvider:
+    provider_sp:
+        name: Sapeur Pompier
+        type: 18
+    provider_samu:
+        name: SAMU
+        type: 15
+    provider_pc:
+        name: Protection Civile
+        type: pc

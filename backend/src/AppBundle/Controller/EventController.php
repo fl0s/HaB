@@ -3,9 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Event;
+use AppBundle\Form\EventType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class EventController extends Controller
 {
@@ -28,16 +30,7 @@ class EventController extends Controller
     {
         $event = new Event();
 
-        $form = $this->createFormBuilder($event)
-            ->add('date', 'date', [
-                'widget' => 'single_text',
-                'format' => 'dd/MM/yyyy',
-                'placeholder' => 'jj/mm/aaaa',
-            ])
-            ->add('description', 'textarea', [
-                'required' => false,
-            ])
-            ->getForm();
+        $form = $this->createForm(EventType::class, $event);
 
         $form->handleRequest($request);
 
@@ -56,34 +49,83 @@ class EventController extends Controller
     }
 
     /**
+     * @Route("/event/{id}/edit", name="event-edit")
+     */
+    public function editAction(Event $event, Request $request)
+    {
+        $form = $this->createForm(EventType::class, $event);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('event-list');
+        }
+
+        return $this->render('event/edit.html.twig', [
+            'event' => $event,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/event/{id}/remove", name="event-delete")
+     */
+    public function removeAction(Event $event)
+    {
+        $this->getDoctrine()->getManager()->remove($event);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute('event-list');
+    }
+
+    /**
      * @Route("/event/{id}/rescue/", name="event-detail")
      */
     public function rescueAction(Event $event)
     {
-        $types = [];
-        $transport = ["Oui" => 0, "Non" => 0];
-        $from = [
-            "18" => 3,
-            "PC" => 1,
-            "15" => 0,
+        $transport = [
+            "Oui" => $event->countTransport(),
+            "Non" => count($event->getRescues()) - $event->countTransport()
         ];
 
-        foreach ($event->getRescues() as $rescue) {
-            $name = $rescue->getType()->getName();
-            if (array_key_exists($name, $types)) {
-                $types[$name]++;
-            } else {
-                $types[$name] = 1;
-            }
+        $provider = [];
+        foreach ($event->getProviderStat() as $stat) {
+            $provider[$stat['provider']->getName()] = $stat['rescue'];
+        }
 
-            $rescue->isTransport() ? $transport['Oui']++ : $transport['Non']++;
+        $types = [];
+        foreach ($event->getTypeStat() as $stat) {
+            $types[$stat['type']->getName()] = $stat['rescue'];
         }
 
         return $this->render('event/rescue_index.html.twig', [
             'event' => $event,
             'types' => $types,
             'transport' => $transport,
-            'from' => $from,
+            'provider' => $provider,
         ]);
+    }
+
+    /**
+     * @Route("/events/print", name="events-print")
+     */
+    public function printAction()
+    {
+        $events = $this->getDoctrine()->getRepository(Event::class)->findAll();
+
+        $html = $this->renderView('event/print.html.twig', [
+            'events' => $events,
+        ]);
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'inline; filename="file.pdf"'
+            )
+        );
     }
 }

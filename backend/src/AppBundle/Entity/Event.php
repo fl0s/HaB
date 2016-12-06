@@ -32,7 +32,7 @@ class Event
 
     /**
      * @var Collection<Rescue>
-     * @ORM\OneToMany(targetEntity="Rescue", mappedBy="event")
+     * @ORM\OneToMany(targetEntity="Rescue", mappedBy="event" , cascade={"remove"})
      */
     private $rescues;
 
@@ -95,5 +95,56 @@ class Event
     public function setRescues($rescues)
     {
         $this->rescues = $rescues;
+    }
+
+    public function countTransport()
+    {
+        return count(array_filter($this->getRescues()->toArray(), function (Rescue $e) {
+            return $e->isTransport() === true;
+        }));
+    }
+
+    public function getTypeStat()
+    {
+        $result = [];
+
+        foreach ($this->getRescues() as $rescue) {
+            if (array_key_exists($rescue->getType()->getName(), $result)) {
+                $result[$rescue->getType()->getName()]['rescue']++;
+                $result[$rescue->getType()->getName()]['transport'] += $rescue->isTransport() ? 1 : 0;
+            } else {
+                $result[$rescue->getType()->getName()] = [
+                    'type' => $rescue->getType(),
+                    'rescue' => 1,
+                    'transport' => $rescue->isTransport() ? 1 : 0,
+                ];
+            }
+        }
+
+        ksort($result);
+
+        return $result;
+    }
+
+    public function getProviderStat()
+    {
+        $result = [];
+
+        foreach ($this->getRescues() as $rescue) {
+            if (array_key_exists($rescue->getProvider()->getName(), $result)) {
+                $result[$rescue->getProvider()->getName()]['rescue']++;
+                $result[$rescue->getProvider()->getName()]['transport'] += $rescue->isTransport() ? 1 : 0;
+            } else {
+                $result[$rescue->getProvider()->getName()] = [
+                    'provider' => $rescue->getProvider(),
+                    'rescue' => 1,
+                    'transport' => $rescue->isTransport() ? 1 : 0,
+                ];
+            }
+        }
+
+        ksort($result);
+
+        return $result;
     }
 }
