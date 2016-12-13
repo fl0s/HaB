@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% set page = 'rescue-type' %}
+{% block title %}Type d'intervention{% endblock %}
+{% block pageTitle %}Type d'intervention{% endblock %}
+{% block pageSubTitle %}
+    <a href="{{ path('rescue-type-create') }}" class="btn btn-success btn-xs">Ajouter</a>
+{% endblock %}
+
+{% block body %}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-body no-padding">
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <th>Type</th>
+                                <th></th>
+                            </tr>
+                            {% for rescueType in rescueTypes %}
+                                <tr>
+                                    <td>
+                                        {{ rescueType.name }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('rescue-type-edit', {'id': rescueType.id}) }}">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </a>
+                                        <a href="{{ path('rescue-type-remove', {'id': rescueType.id}) }}">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}

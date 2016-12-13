@@ -62,7 +62,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    {#<a href="#" class="btn btn-default btn-flat">Profile</a>#}
                                 </div>
                                 <div class="pull-right">
                                     <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat">Déconnexion</a>
@@ -80,6 +80,18 @@
             <ul class="sidebar-menu">
                 <li {% if page == 'stat' %}class="active"{% endif %}><a href="{{ path('homepage') }}"><i class="fa fa-pie-chart"></i> <span>Statistiques</span></a></li>
                 <li {% if page == 'event' %}class="active"{% endif %}><a href="{{ path('event-list') }}"><i class="fa fa-calendar-o"></i> <span>Événements</span></a></li>
+                <li class="treeview {% if page in ['rescue-type', 'user'] %}active{% endif %}">
+                    <a href="#">
+                        <i class="fa fa-cog"></i> <span>Administration</span>
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu {% if page in ['rescue-type', 'user'] %}menu-open{% endif %}" style="display: {% if page in ['rescue-type', 'user'] %}block{% else %}none{% endif %};">
+                        <li {% if page == 'rescue-type' %}class="active"{% endif %}><a href="{{ path('rescue-type-index') }}"><i class="fa fa-ambulance"></i> <span>Type d'intervention</span></a></li>
+                        <li {% if page == 'user' %}class="active"{% endif %}><a href="{{ path('user-index') }}"><i class="fa fa-user"></i> <span>Utilisateur</span></a></li>
+                    </ul>
+                </li>
             </ul>
         </section>
     </aside>

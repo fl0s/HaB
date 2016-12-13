@@ -119,8 +119,17 @@ class EventController extends Controller
             'events' => $events,
         ]);
 
+        $baseDir = $this->get('kernel')->getRootDir() . '/../web';
+
         return new Response(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, [
+                'margin-top' => '51',
+                'margin-bottom' => '18',
+                'margin-left' => '0',
+                'margin-right' => '0',
+                'header-html' => $this->renderView('pdf/header.html.twig', ['base_dir' => $baseDir]),
+                'footer-html' => $this->renderView('pdf/footer.html.twig', ['base_dir' => $baseDir]),
+            ]),
             200,
             array(
                 'Content-Type'          => 'application/pdf',

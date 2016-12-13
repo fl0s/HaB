@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% set page = 'user' %}
+{% block title %}Utilisateur{% endblock %}
+{% block pageTitle %}Utilisateur{% endblock %}
+{% block pageSubTitle %}
+    <a href="{{ path('user-create') }}" class="btn btn-success btn-xs">Ajouter</a>
+{% endblock %}
+
+{% block body %}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-body no-padding">
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <th>Prénom</th>
+                                <th>Nom</th>
+                                <th>Nom d'utilisateur</th>
+                                <th></th>
+                            </tr>
+                            {% for user in users %}
+                                <tr>
+                                    <td>
+                                        {{ user.firstName }}
+                                    </td>
+                                    <td>
+                                        {{ user.lastName }}
+                                    </td>
+                                    <td>
+                                        {{ user.username }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('user-edit', {'id': user.id}) }}">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </a>
+                                        <a href="{{ path('user-remove', {'id': user.id}) }}">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% set page = 'user' %}
+{% block title %}Utilisateur{% endblock %}
+{% block pageTitle %}Utilisateur{% endblock %}
+{% block pageSubTitle %}{{ user.firstName }} {{ user.lastName }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <form action="{{ path('user-edit', {'id': user.id}) }}" method="post">
+                    <div class="box-body">
+                        {{ form_errors(form) }}
+                        {{ form_row(form.firstName) }}
+                        {{ form_row(form.lastName) }}
+                        {{ form_row(form.username) }}
+                        {{ form_row(form.email) }}
+                        {{ form_row(form.plainPassword) }}
+                        {{ form_rest(form) }}
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Modifier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+{% block javascripts %}{% endblock %}
