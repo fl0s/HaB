@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="box">
-            <form action="{{ path('event-create') }}" method="post">
+            <form action="{{ path('event-edit', {'id': event.id}) }}" method="post">
                 <div class="box-body">
                     {{ form_errors(form) }}
                     {{ form_row(form.date) }}

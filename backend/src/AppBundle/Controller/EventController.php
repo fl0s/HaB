@@ -14,9 +14,9 @@ class EventController extends Controller
     /**
      * @Route("/event", name="event-list")
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
-        $events = $this->getDoctrine()->getRepository(Event::class)->findAll();
+        $events = $this->getDoctrine()->getRepository(Event::class)->findBy([], ['date' => 'ASC']);
 
         return $this->render('event/index.html.twig', array(
             'events' => $events,
@@ -113,7 +113,7 @@ class EventController extends Controller
      */
     public function printAction()
     {
-        $events = $this->getDoctrine()->getRepository(Event::class)->findAll();
+        $events = $this->getDoctrine()->getRepository(Event::class)->findBy([], ['date', 'ASC']);
 
         $html = $this->renderView('event/print.html.twig', [
             'events' => $events,

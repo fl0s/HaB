@@ -28,6 +28,7 @@ class UserController extends Controller
     public function createAction(Request $request)
     {
         $user = new User();
+        $user->setEnabled(true);
 
         $form = $this->createForm(UserType::class, $user);
 

@@ -82,11 +82,16 @@ class Event
     }
 
     /**
-     * @return Collection
+     * @return array
      */
     public function getRescues()
     {
-        return $this->rescues;
+        $rescues = $this->rescues->toArray();
+        usort($rescues, function (Rescue $a, Rescue $b) {
+            return $a->getTime() <=> $b->getTime();
+        });
+
+        return $rescues;
     }
 
     /**
@@ -99,7 +104,7 @@ class Event
 
     public function countTransport()
     {
-        return count(array_filter($this->getRescues()->toArray(), function (Rescue $e) {
+        return count(array_filter($this->getRescues(), function (Rescue $e) {
             return $e->isTransport() === true;
         }));
     }
