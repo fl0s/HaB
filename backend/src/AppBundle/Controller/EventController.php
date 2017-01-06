@@ -113,7 +113,7 @@ class EventController extends Controller
      */
     public function printAction()
     {
-        $events = $this->getDoctrine()->getRepository(Event::class)->findBy([], ['date', 'ASC']);
+        $events = $this->getDoctrine()->getRepository(Event::class)->findBy([], ['date' => 'ASC']);
 
         $html = $this->renderView('event/print.html.twig', [
             'events' => $events,
