@@ -4,7 +4,9 @@
 {% block title %}Événements{% endblock %}
 {% block pageTitle %}Événements{% endblock %}
 {% block pageSubTitle %}
-    <a href="{{ path('event-create') }}" class="btn btn-success btn-xs">Ajouter</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('event-create') }}" class="btn btn-success btn-xs">Ajouter</a>
+    {% endif %}
     <a href="{{ path('events-print') }}" class="btn btn-xs btn-default" target="_blank">
         <i class="fa fa-print"></i>
     </a>
@@ -22,7 +24,9 @@
                                     <th>Date</th>
                                     <th>Intervention</th>
                                     <th>Évacuation</th>
-                                    <th></th>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <th></th>
+                                    {% endif %}
                                 </tr>
                                 {% for event in events %}
                                     <tr>
@@ -35,14 +39,16 @@
                                         <td>
                                             {{ event.countTransport }}
                                         </td>
-                                        <td>
-                                            <a href="{{ path('event-edit', {'id': event.id}) }}">
-                                                <i class="fa fa-pencil-square-o"></i>
-                                            </a>
-                                            <a href="{{ path('event-delete', {'id': event.id}) }}">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <td>
+                                                <a href="{{ path('event-edit', {'id': event.id}) }}">
+                                                    <i class="fa fa-pencil-square-o"></i>
+                                                </a>
+                                                <a href="{{ path('event-delete', {'id': event.id}) }}">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        {% endif %}
                                     </tr>
                                 {% endfor %}
                             </tbody>

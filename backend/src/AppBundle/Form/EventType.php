@@ -17,8 +17,14 @@ class EventType extends AbstractType
                 'placeholder' => 'jj/mm/aaaa',
             ])
             ->add('description', 'textarea', [
+                'label' => 'Rapport publique',
                 'required' => false,
-            ]);
+            ])
+            ->add('privateDescription', 'textarea', [
+                'label' => 'Rapport interne',
+                'required' => false,
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

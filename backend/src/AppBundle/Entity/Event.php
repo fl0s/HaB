@@ -26,9 +26,15 @@ class Event
 
     /**
      * @var string|null
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $privateDescription;
 
     /**
      * @var Collection<Rescue>
@@ -79,6 +85,22 @@ class Event
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPrivateDescription()
+    {
+        return $this->privateDescription;
+    }
+
+    /**
+     * @param null|string $description
+     */
+    public function setPrivateDescription($description)
+    {
+        $this->privateDescription = $description;
     }
 
     /**

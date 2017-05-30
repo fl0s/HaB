@@ -6,15 +6,16 @@ use AppBundle\Entity\Event;
 use AppBundle\Entity\Rescue;
 use AppBundle\Form\RescueType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\HttpFoundation\Request;
 
 class RescueController extends Controller
 {
     /**
      * @Route("/event/{id}/rescue/create", name="rescue-create")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function createAction(Event $event, Request $request)
     {
@@ -42,6 +43,7 @@ class RescueController extends Controller
 
     /**
      * @Route("/rescue/{id}", name="rescue-edit")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function editAction(Rescue $rescue, Request $request)
     {
@@ -63,6 +65,7 @@ class RescueController extends Controller
 
     /**
      * @Route("/rescue/{id}/remove", name="rescue-delete")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function removeAction(Rescue $rescue)
     {

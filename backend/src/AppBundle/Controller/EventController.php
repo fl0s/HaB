@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Event;
 use AppBundle\Form\EventType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +26,7 @@ class EventController extends Controller
 
     /**
      * @Route("/event/create", name="event-create")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function createAction(Request $request)
     {
@@ -50,6 +52,7 @@ class EventController extends Controller
 
     /**
      * @Route("/event/{id}/edit", name="event-edit")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function editAction(Event $event, Request $request)
     {
@@ -71,6 +74,7 @@ class EventController extends Controller
 
     /**
      * @Route("/event/{id}/remove", name="event-delete")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function removeAction(Event $event)
     {
