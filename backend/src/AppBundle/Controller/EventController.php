@@ -127,8 +127,8 @@ class EventController extends Controller
 
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html, [
-                'margin-top' => '51',
-                'margin-bottom' => '18',
+                'margin-top' => '60',
+                'margin-bottom' => '15',
                 'margin-left' => '0',
                 'margin-right' => '0',
                 'header-html' => $this->renderView('pdf/header.html.twig', ['base_dir' => $baseDir]),
