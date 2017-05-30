@@ -28,7 +28,9 @@ class ReportController extends Controller
 
         $events = $this->getDoctrine()->getRepository(Event::class)->findBetweenDates($startDate, $endDate);
 
-        $pdf = $this->get('app.report_generator')->generateFromEvents($events);
+        $private = $this->isGranted('ROLE_ADMIN') && $request->query->has('private');
+
+        $pdf = $this->get('app.report_generator')->generateFromEvents($events, $private);
 
         return new Response($pdf, Response::HTTP_OK, [
             'Content-Type'          => 'application/pdf',
@@ -39,11 +41,13 @@ class ReportController extends Controller
     /**
      * @Route("/report/all", name="app.report.all")
      */
-    public function reportAllEventsAction()
+    public function reportAllEventsAction(Request $request)
     {
         $events = $this->getDoctrine()->getRepository(Event::class)->findBy([], ['date' => 'ASC']);
 
-        $pdf = $this->get('app.report_generator')->generateFromEvents($events);
+        $private = $this->isGranted('ROLE_ADMIN') && $request->query->has('private');
+
+        $pdf = $this->get('app.report_generator')->generateFromEvents($events, $private);
 
         return new Response($pdf, Response::HTTP_OK, [
             'Content-Type'          => 'application/pdf',
@@ -54,11 +58,13 @@ class ReportController extends Controller
     /**
      * @Route("/report/last", name="app.report.last")
      */
-    public function reportLastEventAction()
+    public function reportLastEventAction(Request $request)
     {
         $lastEvent = $this->getDoctrine()->getRepository(Event::class)->findBy([], ['date' => 'DESC'], 1);
 
-        $pdf = $this->get('app.report_generator')->generateFromEvents($lastEvent);
+        $private = $this->isGranted('ROLE_ADMIN') && $request->query->has('private');
+
+        $pdf = $this->get('app.report_generator')->generateFromEvents($lastEvent, $private);
 
         return new Response($pdf, Response::HTTP_OK, [
             'Content-Type'          => 'application/pdf',

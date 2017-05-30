@@ -34,6 +34,10 @@
         td, th {
             border: solid 1px #000;
         }
+        .private-description {
+            padding-left: 5px;
+            border-left: 1px #F08700 solid;
+        }
     </style>
 </head>
 <body>
@@ -44,6 +48,9 @@
         <p>La Protection Civile a réalisé {{ event.rescues | length }} intervention{{ (event.rescues | length) > 1 ? 's' : '' }} et {{ event.countTransport }} évacuation{{ (event.countTransport | length) > 1 ? 's' : '' }}.</p>
         {% if event.description %}
             <p>{{ event.description }}</p>
+        {% endif %}
+        {% if private %}
+            <p class="private-description">{{ event.privateDescription }}</p>
         {% endif %}
         <h3>Répartition des interventions par sources </h3>
         <table>

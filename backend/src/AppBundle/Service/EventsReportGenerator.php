@@ -18,10 +18,11 @@ class EventsReportGenerator
         $this->pdfGenerator = $pdfGenerator;
     }
 
-    public function generateFromEvents(array $events)
+    public function generateFromEvents(array $events, $private = false)
     {
         $html = $this->twig->render('event/print.html.twig', [
             'events' => $events,
+            'private' => $private,
         ]);
 
         $baseDir = $this->rootDir . '/../web';
