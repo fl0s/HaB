@@ -1,0 +1,13 @@
+AppBundle\Entity\UserGroup:
+    protec_admin_group:
+        __construct: ["Administrateur Protection Civile", ['ROLE_ADMIN']]
+        pictureSlug: protec
+    protec_group:
+        __construct: ["Protection Civile", ['ROLE_USER']]
+        pictureSlug: protec
+    firefighter_group:
+        __construct: ["Sapeur Pompier - SDIS44", ['ROLE_USER']]
+        pictureSlug: pompier
+    mayor_group:
+        __construct: ["Mairie de Nantes", ['ROLE_USER']]
+        pictureSlug: mairie

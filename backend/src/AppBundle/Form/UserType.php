@@ -3,6 +3,8 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\User;
+use AppBundle\Entity\UserGroup;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -18,7 +20,11 @@ class UserType extends AbstractType
             ->add('email', EmailType::class)
             ->add('firstName', TextType::class)
             ->add('lastName', TextType::class)
-            ->add('plainPassword', PasswordType::class);
+            ->add('plainPassword', PasswordType::class)
+            ->add('group', EntityType::class, [
+                'class' => UserGroup::class
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -47,16 +47,19 @@
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
-                            <img src="{{ asset('images/protec.png') }}" class="user-image" alt="User Image">
+                            <img src="{{ asset('images/groups/' ~ app.user.group.pictureSlug ~ '.png') }}" class="user-image" alt="User Image">
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
                             <span class="hidden-xs">{{ app.user.firstName }} {{ app.user.lastName }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="{{ asset('images/protec.png') }}" class="img-circle" alt="User Image">
+                                <img src="{{ asset('images/groups/' ~ app.user.group.pictureSlug ~ '.png') }}" class="img-circle" alt="User Image">
                                 <p>
-                                    {{ app.user.firstName }} {{ app.user.lastName }} - PC 44 Nantes
+                                    {{ app.user.firstName }} {{ app.user.lastName }}
+                                </p>
+                                <p>
+                                    {{ app.user.group.name }}
                                 </p>
                             </li>
                             <!-- Menu Footer-->
@@ -80,18 +83,20 @@
             <ul class="sidebar-menu">
                 <li {% if page == 'stat' %}class="active"{% endif %}><a href="{{ path('homepage') }}"><i class="fa fa-pie-chart"></i> <span>Statistiques</span></a></li>
                 <li {% if page == 'event' %}class="active"{% endif %}><a href="{{ path('event-list') }}"><i class="fa fa-calendar-o"></i> <span>Événements</span></a></li>
-                <li class="treeview {% if page in ['rescue-type', 'user'] %}active{% endif %}">
-                    <a href="#">
-                        <i class="fa fa-cog"></i> <span>Administration</span>
-                        <span class="pull-right-container">
-                          <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu {% if page in ['rescue-type', 'user'] %}menu-open{% endif %}" style="display: {% if page in ['rescue-type', 'user'] %}block{% else %}none{% endif %};">
-                        <li {% if page == 'rescue-type' %}class="active"{% endif %}><a href="{{ path('rescue-type-index') }}"><i class="fa fa-ambulance"></i> <span>Type d'intervention</span></a></li>
-                        <li {% if page == 'user' %}class="active"{% endif %}><a href="{{ path('user-index') }}"><i class="fa fa-user"></i> <span>Utilisateur</span></a></li>
-                    </ul>
-                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="treeview {% if page in ['rescue-type', 'user'] %}active{% endif %}">
+                        <a href="#">
+                            <i class="fa fa-cog"></i> <span>Administration</span>
+                            <span class="pull-right-container">
+                              <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu {% if page in ['rescue-type', 'user'] %}menu-open{% endif %}" style="display: {% if page in ['rescue-type', 'user'] %}block{% else %}none{% endif %};">
+                            <li {% if page == 'rescue-type' %}class="active"{% endif %}><a href="{{ path('rescue-type-index') }}"><i class="fa fa-ambulance"></i> <span>Type d'intervention</span></a></li>
+                            <li {% if page == 'user' %}class="active"{% endif %}><a href="{{ path('user-index') }}"><i class="fa fa-user"></i> <span>Utilisateur</span></a></li>
+                        </ul>
+                    </li>
+                {% endif %}
             </ul>
         </section>
     </aside>

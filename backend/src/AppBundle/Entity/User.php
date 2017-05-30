@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 
@@ -29,6 +30,11 @@ class User extends BaseUser
      * @ORM\Column(type="string")
      */
     private $lastName;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="UserGroup")
+     */
+    protected $groups;
 
     /**
      * @return int
@@ -68,5 +74,15 @@ class User extends BaseUser
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+    }
+
+    public function setGroup(UserGroup $group)
+    {
+        $this->groups = new ArrayCollection([$group]);
+    }
+
+    public function getGroup()
+    {
+        return $this->getGroups()->first();
     }
 }

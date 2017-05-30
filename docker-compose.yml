@@ -7,7 +7,7 @@ www:
     - mysql
     - smtp
   ports:
-    - "80:80"
+    - 80
 
 mysql:
   image: mysql:5.7.9
@@ -15,11 +15,11 @@ mysql:
     MYSQL_ROOT_PASSWORD: hangar
     MYSQL_DATABASE: hangar
   ports:
-    - "3306:3306"
+    - 3306
 
 smtp:
   image: mailhog/mailhog
   ports:
     - 8025
   environment:
-    MH_SMTP_BIND_ADDR: 0.0.0.0:25
+    MH_SMTP_BIND_ADDR: 0.0.0.0:1025

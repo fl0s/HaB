@@ -6,9 +6,10 @@ RUN apt-get update && apt-get install -y \
     libxrender1 \
     libfontconfig1 \
     libxext6 \
+    xz-utils \
     && docker-php-ext-install pdo_mysql mbstring bcmath
 
-RUN curl -f http://download.gna.org/wkhtmltopdf/0.12/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz -o /root/wkhtmltox.tar.xz
+RUN curl -f https://downloads.wkhtmltopdf.org/0.12/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz -o /root/wkhtmltox.tar.xz
 RUN cd /root/ && tar -xJvf wkhtmltox.tar.xz && mv /root/wkhtmltox/bin/wkhtmltopdf /usr/local/bin/
 RUN rm -f /root/wkhtmltox.tar.xz && rm -rf /root/wkhtmltox/
 
