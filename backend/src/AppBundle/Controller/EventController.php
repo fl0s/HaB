@@ -8,7 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class EventController extends Controller
 {
@@ -110,35 +109,5 @@ class EventController extends Controller
             'transport' => $transport,
             'provider' => $provider,
         ]);
-    }
-
-    /**
-     * @Route("/events/print", name="events-print")
-     */
-    public function printAction()
-    {
-        $events = $this->getDoctrine()->getRepository(Event::class)->findBy([], ['date' => 'ASC']);
-
-        $html = $this->renderView('event/print.html.twig', [
-            'events' => $events,
-        ]);
-
-        $baseDir = $this->get('kernel')->getRootDir() . '/../web';
-
-        return new Response(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html, [
-                'margin-top' => '60',
-                'margin-bottom' => '15',
-                'margin-left' => '0',
-                'margin-right' => '0',
-                'header-html' => $this->renderView('pdf/header.html.twig', ['base_dir' => $baseDir]),
-                'footer-html' => $this->renderView('pdf/footer.html.twig', ['base_dir' => $baseDir]),
-            ]),
-            200,
-            array(
-                'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'inline; filename="file.pdf"'
-            )
-        );
     }
 }

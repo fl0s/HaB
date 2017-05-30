@@ -83,6 +83,7 @@
             <ul class="sidebar-menu">
                 <li {% if page == 'stat' %}class="active"{% endif %}><a href="{{ path('homepage') }}"><i class="fa fa-pie-chart"></i> <span>Statistiques</span></a></li>
                 <li {% if page == 'event' %}class="active"{% endif %}><a href="{{ path('event-list') }}"><i class="fa fa-calendar-o"></i> <span>Événements</span></a></li>
+                <li {% if page == 'report' %}class="active"{% endif %}><a href="{{ path('app.report.index') }}"><i class="fa fa-file-text-o"></i> <span>Rapports</span></a></li>
                 {% if is_granted('ROLE_ADMIN') %}
                     <li class="treeview {% if page in ['rescue-type', 'user'] %}active{% endif %}">
                         <a href="#">

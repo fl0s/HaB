@@ -7,9 +7,6 @@
     {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('event-create') }}" class="btn btn-success btn-xs">Ajouter</a>
     {% endif %}
-    <a href="{{ path('events-print') }}" class="btn btn-xs btn-default" target="_blank">
-        <i class="fa fa-print"></i>
-    </a>
 {% endblock %}
 
 {% block body %}
