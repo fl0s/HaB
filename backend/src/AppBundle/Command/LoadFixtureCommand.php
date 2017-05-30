@@ -23,6 +23,7 @@ class LoadFixtureCommand extends ContainerAwareCommand
             $baseDir . 'rescue_providers.yml',
             $baseDir . 'events.yml',
             $baseDir . 'rescues.yml',
+            $baseDir . 'groups.yml',
             $baseDir . 'users.yml',
         ]);
 

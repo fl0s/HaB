@@ -7,3 +7,6 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    app.report_generator:
+        class: AppBundle\Service\EventsReportGenerator
+        arguments: ["%kernel.root_dir%", "@twig", "@knp_snappy.pdf"]

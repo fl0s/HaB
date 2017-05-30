@@ -11,9 +11,11 @@
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Interventions</h3>
-                <div class="box-tools pull-right">
-                    <a href="{{ path('rescue-create', {'id': event.id}) }}" class="btn btn-sm btn-success">Ajout</a>
-                </div>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="box-tools pull-right">
+                        <a href="{{ path('rescue-create', {'id': event.id}) }}" class="btn btn-sm btn-success">Ajout</a>
+                    </div>
+                {% endif %}
             </div>
             <div class="box-body no-padding">
                 <table class="table table-bordered">
@@ -23,7 +25,9 @@
                             <th>Type</th>
                             <th>Provenance</th>
                             <th>Évacuation</th>
-                            <th></th>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <th></th>
+                            {% endif %}
                         </tr>
                         {% for rescue in event.rescues %}
                             <tr>
@@ -43,17 +47,19 @@
                                         Non
                                     {% endif %}
                                 </td>
-                                <td>
-                                    <a class="test" data-toggle="modal" data-target="#myModal" data-lat="{{ rescue.lat }}" data-lon="{{ rescue.lon }}">
-                                        <i class="fa fa-map"></i>
-                                    </a>
-                                    <a href="{{ path('rescue-edit', {'id': rescue.id}) }}">
-                                        <i class="fa fa-pencil-square-o"></i>
-                                    </a>
-                                    <a href="{{ path('rescue-delete', {'id': rescue.id}) }}">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </td>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <td>
+                                        <a class="test" data-toggle="modal" data-target="#myModal" data-lat="{{ rescue.lat }}" data-lon="{{ rescue.lon }}">
+                                            <i class="fa fa-map"></i>
+                                        </a>
+                                        <a href="{{ path('rescue-edit', {'id': rescue.id}) }}">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </a>
+                                        <a href="{{ path('rescue-delete', {'id': rescue.id}) }}">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                     </tbody>

@@ -6,3 +6,28 @@ AppBundle\Entity\User:
         plainPassword: admin
         email: admin@exemple.fr
         enabled: true
+        groups: [@protec_admin_group]
+    protec:
+        firstName: Sam
+        lastName: LeSecouriste
+        username: secouriste
+        plainPassword: secouriste
+        email: secouriste@exemple.fr
+        enabled: true
+        groups: [@protec_group]
+    mayor:
+        firstName: Monsieur
+        lastName: LeMaire
+        username: mairie
+        plainPassword: mairie
+        email: mairie@exemple.fr
+        enabled: true
+        groups: [@mayor_group]
+    firefighter:
+        firstName: Sam
+        lastName: LePompier
+        username: pompier
+        plainPassword: pompier
+        email: pompier@exemple.fr
+        enabled: true
+        groups: [@firefighter_group]

@@ -5,9 +5,13 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\RescueType;
 use AppBundle\Form\RescueTypeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Security("has_role('ROLE_ADMIN')")
+ */
 class RescueTypeController extends Controller
 {
     /**
