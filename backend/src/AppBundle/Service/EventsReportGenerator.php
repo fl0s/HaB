@@ -28,7 +28,7 @@ class EventsReportGenerator
         $baseDir = $this->rootDir . '/../web';
 
         return $this->pdfGenerator->getOutputFromHtml($html, [
-            'margin-top' => '60',
+            'margin-top' => '50',
             'margin-bottom' => '15',
             'margin-left' => '0',
             'margin-right' => '0',
