@@ -44,60 +44,62 @@
     <h1>Bilan des activités au Hangar à Bananes</h1>
     <p>Dans le cadre de l’expérimentation des postes de secours au Hangar à Bananes, un suivi des activités est réalisé avec une répartition par émetteurs et par types.</p>
     {% for event in events %}
-        <h2>Poste du {{ event.date | date('d/m/Y') }}</h2>
-        <p>La Protection Civile a réalisé {{ event.rescues | length }} intervention{{ (event.rescues | length) > 1 ? 's' : '' }} et {{ event.countTransport }} évacuation{{ (event.countTransport | length) > 1 ? 's' : '' }}.</p>
-        {% if event.description %}
-            <p>{{ event.description }}</p>
-        {% endif %}
-        {% if private %}
-            <p class="private-description">{{ event.privateDescription }}</p>
-        {% endif %}
-        <h3>Répartition des interventions par sources </h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Source</th>
-                    <th>Nombre d’intervention</th>
-                    <th>Nombre d’évacuation</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for stat in event.getProviderStat %}
-                <tr>
-                    <td>{{ stat.provider.name }}</td>
-                    <td>{{ stat.rescue }}</td>
-                    <td>{{ stat.transport }}</td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="3">Aucune intervention ce jour-là</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <h3>Répartition des interventions par type</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Source</th>
-                    <th>Nombre d’intervention</th>
-                    <th>Nombre d’évacuation</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for stat in event.getTypeStat %}
-                <tr>
-                    <td>{{ stat.type.name }}</td>
-                    <td>{{ stat.rescue }}</td>
-                    <td>{{ stat.transport }}</td>
-                </tr>
+        <div style="page-break-inside:avoid;">
+            <h2>Poste du {{ event.date | date('d/m/Y') }}</h2>
+            <p>La Protection Civile a réalisé {{ event.rescues | length }} intervention{{ (event.rescues | length) > 1 ? 's' : '' }} et {{ event.countTransport }} évacuation{{ (event.countTransport | length) > 1 ? 's' : '' }}.</p>
+            {% if event.description %}
+                <p>{{ event.description }}</p>
+            {% endif %}
+            {% if private %}
+                <p class="private-description">{{ event.privateDescription }}</p>
+            {% endif %}
+            <h3>Répartition des interventions par sources </h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Source</th>
+                        <th>Nombre d’intervention</th>
+                        <th>Nombre d’évacuation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for stat in event.getProviderStat %}
+                    <tr>
+                        <td>{{ stat.provider.name }}</td>
+                        <td>{{ stat.rescue }}</td>
+                        <td>{{ stat.transport }}</td>
+                    </tr>
                 {% else %}
                     <tr>
                         <td colspan="3">Aucune intervention ce jour-là</td>
                     </tr>
                 {% endfor %}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+            <h3>Répartition des interventions par type</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Source</th>
+                        <th>Nombre d’intervention</th>
+                        <th>Nombre d’évacuation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stat in event.getTypeStat %}
+                    <tr>
+                        <td>{{ stat.type.name }}</td>
+                        <td>{{ stat.rescue }}</td>
+                        <td>{{ stat.transport }}</td>
+                    </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">Aucune intervention ce jour-là</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% endfor %}
 </body>
 </html>
