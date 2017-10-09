@@ -4,9 +4,12 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     app.report_generator:
         class: AppBundle\Service\EventsReportGenerator
         arguments: ["%kernel.root_dir%", "@twig", "@knp_snappy.pdf"]
+
+    app.listener.change_password:
+        class: AppBundle\EventListener\PasswordChangeRedirectListener
+        arguments: ['@router']
+        tags:
+          - { name: kernel.event_subscriber }

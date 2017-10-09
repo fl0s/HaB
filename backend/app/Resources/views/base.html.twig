@@ -65,7 +65,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    {#<a href="#" class="btn btn-default btn-flat">Profile</a>#}
+                                    <a href="{{ path('fos_user_change_password') }}" class="btn btn-default btn-flat">Mot de passe</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat">Déconnexion</a>
@@ -111,6 +111,12 @@
             </h1>
         </section>
         <section class="content">
+
+            {% if app.session.flashBag.has('success') %}
+                {% for message in app.session.flashBag.get('success') %}
+                    <div class="alert alert-success" role="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
 
             {% block body %}{% endblock %}
 
