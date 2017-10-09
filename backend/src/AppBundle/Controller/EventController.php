@@ -16,7 +16,7 @@ class EventController extends Controller
      */
     public function indexAction()
     {
-        $events = $this->getDoctrine()->getRepository(Event::class)->findBy([], ['date' => 'ASC']);
+        $events = $this->getDoctrine()->getRepository(Event::class)->findBy([], ['date' => 'DESC']);
 
         return $this->render('event/index.html.twig', array(
             'events' => $events,

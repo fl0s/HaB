@@ -48,10 +48,10 @@
             <h2>Poste du {{ event.date | date('d/m/Y') }}</h2>
             <p>La Protection Civile a réalisé {{ event.rescues | length }} intervention{{ (event.rescues | length) > 1 ? 's' : '' }} et {{ event.countTransport }} évacuation{{ (event.countTransport | length) > 1 ? 's' : '' }}.</p>
             {% if event.description %}
-                <p>{{ event.description }}</p>
+                <p>{{ event.description|nl2br }}</p>
             {% endif %}
             {% if private %}
-                <p class="private-description">{{ event.privateDescription }}</p>
+                <p class="private-description">{{ event.privateDescription|nl2br }}</p>
             {% endif %}
             <h3>Répartition des interventions par sources </h3>
             <table>

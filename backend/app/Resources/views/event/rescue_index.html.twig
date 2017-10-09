@@ -49,9 +49,6 @@
                                 </td>
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <td>
-                                        <a class="test" data-toggle="modal" data-target="#myModal" data-lat="{{ rescue.lat }}" data-lon="{{ rescue.lon }}">
-                                            <i class="fa fa-map"></i>
-                                        </a>
                                         <a href="{{ path('rescue-edit', {'id': rescue.id}) }}">
                                             <i class="fa fa-pencil-square-o"></i>
                                         </a>
@@ -100,19 +97,6 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Carte</h4>
-            </div>
-            <div>
-                <div id="mapid" style="width: 600px; height: 340px;"></div>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock %}
 
 {% block stylesheets %}{% endblock %}
@@ -137,31 +121,6 @@
             "#222222",
             "#d2d6de"
         ];
-
-        mymap = L.map('mapid').setView([47.204, -1.567], 15);
-        marker = undefined;
-        L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
-            attribution: '',
-            maxZoom: 19,
-            accessToken: 'pk.eyJ1IjoiZmwwcyIsImEiOiJjaXZ2ZmlnN2YwMDBqMm9vNHliNTlidmJiIn0.F4BOrY5jrHJYDpHR-m_73Q'
-        }).addTo(mymap);
-
-        $('#myModal').on('shown.bs.modal', function(){
-            setTimeout(function() {
-                mymap.invalidateSize();
-            }, 1);
-        });
-
-        $(document).on('click', '.test', function() {
-            var lat = $(this).data('lat');
-            var lon = $(this).data('lon');
-
-            if (marker) {
-                marker.remove();
-            }
-            marker = L.marker([lat, lon]).addTo(mymap);
-        });
-
 
         new Chart($("#typeChart"),{
             type: 'pie',
