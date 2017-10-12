@@ -60,6 +60,8 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->get('fos_user.user_manager')->updateUser($user);
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('user-index');
