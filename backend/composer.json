@@ -23,7 +23,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "h4cc/alice-fixtures-bundle": "^0.5.1",
         "knplabs/knp-snappy-bundle": "^1.4",
-        "friendsofsymfony/user-bundle": "~2.0@dev"
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "twig/extensions": "^1.5"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

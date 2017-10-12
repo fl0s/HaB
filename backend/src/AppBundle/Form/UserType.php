@@ -31,11 +31,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'label_format' => 'form.user.%name%',
         ]);
-    }
-
-    public function getName()
-    {
-        return 'rescue_type_form';
     }
 }

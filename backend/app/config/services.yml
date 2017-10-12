@@ -1,8 +1,3 @@
-# Learn more about services, parameters and containers at
-# http://symfony.com/doc/current/book/service_container.html
-parameters:
-#    parameter_name: value
-
 services:
     app.report_generator:
         class: AppBundle\Service\EventsReportGenerator
@@ -13,3 +8,20 @@ services:
         arguments: ['@router']
         tags:
           - { name: kernel.event_subscriber }
+
+    app.listener.login:
+        class: AppBundle\EventListener\LoginListener
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+          - { name: kernel.event_subscriber }
+
+    app.listener.report:
+        class: AppBundle\EventListener\ReportListener
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+          - { name: kernel.event_subscriber }
+
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }

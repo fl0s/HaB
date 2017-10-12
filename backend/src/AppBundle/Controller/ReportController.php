@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Event;
+use AppBundle\Event\ReportEvent;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,6 +33,8 @@ class ReportController extends Controller
 
         $pdf = $this->get('app.report_generator')->generateFromEvents($events, $private);
 
+        $this->get('event_dispatcher')->dispatch(ReportEvent::PRINT_REPORT, new ReportEvent($this->getUser()));
+
         return new Response($pdf, Response::HTTP_OK, [
             'Content-Type'          => 'application/pdf',
             'Content-Disposition'   => 'inline; filename="file.pdf"'
@@ -49,6 +52,8 @@ class ReportController extends Controller
 
         $pdf = $this->get('app.report_generator')->generateFromEvents($events, $private);
 
+        $this->get('event_dispatcher')->dispatch(ReportEvent::PRINT_REPORT, new ReportEvent($this->getUser()));
+
         return new Response($pdf, Response::HTTP_OK, [
             'Content-Type'          => 'application/pdf',
             'Content-Disposition'   => 'inline; filename="file.pdf"'
@@ -65,6 +70,8 @@ class ReportController extends Controller
         $private = $this->isGranted('ROLE_ADMIN') && $request->query->has('private');
 
         $pdf = $this->get('app.report_generator')->generateFromEvents($lastEvent, $private);
+
+        $this->get('event_dispatcher')->dispatch(ReportEvent::PRINT_REPORT, new ReportEvent($this->getUser()));
 
         return new Response($pdf, Response::HTTP_OK, [
             'Content-Type'          => 'application/pdf',

@@ -7,7 +7,7 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-5">
             <div class="box">
                 <form action="{{ path('user-edit', {'id': user.id}) }}" method="post">
                     <div class="box-body">
@@ -23,6 +23,39 @@
                         <button type="submit" class="btn btn-primary">Modifier</button>
                     </div>
                 </form>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Historique</h3>
+                </div>
+                <div class="box-body" style="max-height: 500px; overflow: scroll;">
+                    <ul class="timeline timeline-inverse">
+                        {% set lastDate = '' %}
+                        {% for log in user.logs %}
+                            {% if lastDate != (log.date|localizeddate('medium', 'none')) %}
+                                {% set lastDate = log.date|localizeddate('medium', 'none', 'fr') %}
+                                <li class="time-label">
+                                    <span class="bg-blue">
+                                        {{ lastDate }}
+                                    </span>
+                                </li>
+                            {% endif %}
+                            <li>
+                                {% if log.type in [constant('USER_LOGIN', log)] %}
+                                    <i class="fa fa-user bg-blue"></i>
+                                {% elseif log.type in [constant('REPORT_PRINT', log)] %}
+                                    <i class="fa fa-file-text bg-blue"></i>
+                                {% endif %}
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> {{ log.date|date('H:i') }}</span>
+                                    <h3 class="timeline-header">{{ ('log.'~log.type)|trans }}</h3>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

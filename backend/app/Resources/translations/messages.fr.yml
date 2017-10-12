@@ -1,0 +1,12 @@
+form:
+    user:
+        email: Email
+        firstName: Prénom
+        group: Groupe d'utilisateur
+        lastName: Nom
+        plainPassword: Mot de Passe
+        username: Nom d'utilisateur
+
+log:
+    user_login: Connexion de l'utilisateur à la plateforme.
+    report_print: Impression d'un rapport

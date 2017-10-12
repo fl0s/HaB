@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 
@@ -35,6 +36,13 @@ class User extends BaseUser
      * @ORM\ManyToMany(targetEntity="UserGroup")
      */
     protected $groups;
+
+    /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity=Log::class, mappedBy="user")
+     * @ORM\OrderBy({"date": "DESC"})
+     */
+    private $logs;
 
     /**
      * @return int
@@ -84,5 +92,10 @@ class User extends BaseUser
     public function getGroup()
     {
         return $this->getGroups()->first();
+    }
+
+    public function getLogs()
+    {
+        return $this->logs;
     }
 }
