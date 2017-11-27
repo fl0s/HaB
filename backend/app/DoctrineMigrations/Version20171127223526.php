@@ -22,7 +22,7 @@ class Version20171127223526 extends AbstractMigration
         $this->addSql('ALTER TABLE rescue ADD CONSTRAINT FK_FA71973B1A95AA13 FOREIGN KEY (evacuation_provider_id) REFERENCES evacuation_provider (id)');
         $this->addSql('CREATE INDEX IDX_FA71973B1A95AA13 ON rescue (evacuation_provider_id)');
 
-        $this->addSql('UPDATE rescue SET evacuation_provider_id = (SELECT id FROM evacuation_provider WHERE type=\"sp\") WHERE transport=1');
+        $this->addSql('UPDATE rescue SET evacuation_provider_id = (SELECT id FROM evacuation_provider WHERE type=\"na\") WHERE transport=1');
 
         $this->addSql('ALTER TABLE rescue DROP transport');
     }

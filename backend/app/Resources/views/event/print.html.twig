@@ -99,6 +99,27 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <h3>Répartition des interventions par vecteur d'évacuation</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vecteur d'évacuation</th>
+                        <th>Nombre d’évacuation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stat in event.getEvacuationStat %}
+                        <tr>
+                            <td>{{ stat.provider.name }}</td>
+                            <td>{{ stat.transport }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">Aucune intervention ce jour-là</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     {% endfor %}
 </body>

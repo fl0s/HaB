@@ -5,3 +5,6 @@ AppBundle\Entity\EvacuationProvider:
     provider_assu:
         name: Ambulance Privé
         type: assu
+    provider_na:
+        name: Evacuation mais vecteur inconnu
+        type: na

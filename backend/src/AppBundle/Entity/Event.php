@@ -174,4 +174,26 @@ class Event
 
         return $result;
     }
+
+    public function getEvacuationStat()
+    {
+        $result = [];
+
+        foreach ($this->getRescues() as $rescue) {
+            if ($rescue->hasEvacuation()) {
+                if (array_key_exists($rescue->getEvacuationProvider()->getName(), $result)) {
+                    $result[$rescue->getEvacuationProvider()->getName()]['transport'] += $rescue->hasEvacuation() ? 1 : 0;
+                } else {
+                    $result[$rescue->getEvacuationProvider()->getName()] = [
+                        'provider' =>$rescue->getEvacuationProvider(),
+                        'transport' => $rescue->hasEvacuation() ? 1 : 0,
+                    ];
+                }
+            }
+        }
+
+        ksort($result);
+
+        return $result;
+    }
 }
