@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\EvacuationProvider;
 use AppBundle\Entity\Rescue;
 use AppBundle\Entity\RescueProvider;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -22,7 +23,13 @@ class RescueType extends AbstractType
                 'class' => RTE::class,
                 'choice_label' => 'name',
             ])
-            ->add('transport')
+            ->add('evacuationProvider', EntityType::class, [
+                'class' => EvacuationProvider::class,
+                'choice_label' => 'name',
+                'empty_data' => null,
+                'placeholder' => 'form.rescue.no_evacuation',
+                'required' => false,
+            ])
             ->add('provider', EntityType::class, [
                 'class' => RescueProvider::class,
                 'choice_label' => 'name',
@@ -33,6 +40,7 @@ class RescueType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Rescue::class,
+            'label_format' => 'form.rescue.%name%',
         ]);
     }
 

@@ -127,7 +127,7 @@ class Event
     public function countTransport()
     {
         return count(array_filter($this->getRescues(), function (Rescue $e) {
-            return $e->isTransport() === true;
+            return $e->hasEvacuation();
         }));
     }
 
@@ -138,12 +138,12 @@ class Event
         foreach ($this->getRescues() as $rescue) {
             if (array_key_exists($rescue->getType()->getName(), $result)) {
                 $result[$rescue->getType()->getName()]['rescue']++;
-                $result[$rescue->getType()->getName()]['transport'] += $rescue->isTransport() ? 1 : 0;
+                $result[$rescue->getType()->getName()]['transport'] += $rescue->hasEvacuation() ? 1 : 0;
             } else {
                 $result[$rescue->getType()->getName()] = [
                     'type' => $rescue->getType(),
                     'rescue' => 1,
-                    'transport' => $rescue->isTransport() ? 1 : 0,
+                    'transport' => $rescue->hasEvacuation() ? 1 : 0,
                 ];
             }
         }
@@ -160,12 +160,12 @@ class Event
         foreach ($this->getRescues() as $rescue) {
             if (array_key_exists($rescue->getProvider()->getName(), $result)) {
                 $result[$rescue->getProvider()->getName()]['rescue']++;
-                $result[$rescue->getProvider()->getName()]['transport'] += $rescue->isTransport() ? 1 : 0;
+                $result[$rescue->getProvider()->getName()]['transport'] += $rescue->hasEvacuation() ? 1 : 0;
             } else {
                 $result[$rescue->getProvider()->getName()] = [
                     'provider' => $rescue->getProvider(),
                     'rescue' => 1,
-                    'transport' => $rescue->isTransport() ? 1 : 0,
+                    'transport' => $rescue->hasEvacuation() ? 1 : 0,
                 ];
             }
         }

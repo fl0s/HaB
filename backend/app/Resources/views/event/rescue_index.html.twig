@@ -41,8 +41,8 @@
                                     {{ rescue.provider.name }}
                                 </td>
                                 <td>
-                                    {% if rescue.transport %}
-                                        Oui
+                                    {% if rescue.evacuationProvider %}
+                                        {{ rescue.evacuationProvider.name }}
                                     {% else %}
                                         Non
                                     {% endif %}
