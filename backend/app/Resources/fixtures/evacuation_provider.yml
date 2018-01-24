@@ -1,0 +1,10 @@
+AppBundle\Entity\EvacuationProvider:
+    provider_sp:
+        name: Sapeur Pompier
+        type: sp
+    provider_assu:
+        name: Ambulance Privé
+        type: assu
+    provider_na:
+        name: Evacuation mais vecteur inconnu
+        type: na

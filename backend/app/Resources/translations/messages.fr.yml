@@ -1,4 +1,11 @@
 form:
+    rescue:
+        time: Heure de l'intervention
+        type: Type de l'intervention
+        transport: Est-ce qu'il y a eu évacuation ?
+        provider: Provenance de l'intervention
+        evacuationProvider: Vecteur d'évacuation
+        no_evacuation: Pas d'évacuation
     user:
         email: Email
         firstName: Prénom

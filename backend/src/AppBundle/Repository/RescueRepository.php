@@ -2,7 +2,6 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Entity\Rescue;
 use Doctrine\ORM\EntityRepository;
 
 class RescueRepository extends EntityRepository
@@ -11,7 +10,7 @@ class RescueRepository extends EntityRepository
     {
         return $this->createQueryBuilder('r')
             ->select('count(r)')
-            ->where('r.transport = 1')
+            ->where('r.evacuationProvider IS NOT NULL')
             ->getQuery()
             ->getSingleScalarResult();
     }

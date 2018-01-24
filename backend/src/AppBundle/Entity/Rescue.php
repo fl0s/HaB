@@ -30,10 +30,10 @@ class Rescue
     private $type;
 
     /**
-     * @var bool
-     * @ORM\Column(type="boolean")
+     * @var EvacuationProvider|null
+     * @ORM\ManyToOne(targetEntity=EvacuationProvider::class)
      */
-    private $transport = false;
+    private $evacuationProvider;
 
     /**
      * @var float
@@ -58,6 +58,11 @@ class Rescue
      * @ORM\ManyToOne(targetEntity="Event", inversedBy="rescues")
      */
     private $event;
+
+    public function __construct()
+    {
+        $this->time = new \DateTime();
+    }
 
     /**
      * @return int
@@ -100,19 +105,27 @@ class Rescue
     }
 
     /**
-     * @return boolean
+     * @return EvacuationProvider|null
      */
-    public function isTransport()
+    public function getEvacuationProvider()
     {
-        return $this->transport;
+        return $this->evacuationProvider;
     }
 
     /**
-     * @param boolean $transport
+     * @return bool
      */
-    public function setTransport($transport)
+    public function hasEvacuation()
     {
-        $this->transport = $transport;
+        return $this->evacuationProvider !== null;
+    }
+
+    /**
+     * @param EvacuationProvider|null $evacuationProvider
+     */
+    public function setEvacuationProvider($evacuationProvider)
+    {
+        $this->evacuationProvider = $evacuationProvider;
     }
 
     /**
