@@ -1,4 +1,21 @@
+event:
+    print:
+        evacuation: "[0,1] %count% évacuation|]1,Inf[ %count% évacuations"
+        rescue: "[0,1] %count% intervention|]1,Inf[ %count% interventions"
+        rescueWithNoCare: "{1} Une demande d'intervention n'a pas nécessité d'action de notre part.|]1,Inf[ %count% demandes intervention n'ont pas nécessité d'action de notre part."
+        column:
+            type: Type
+            rescueCount: Nombre d’intervention
+            evacuationCount: Nombre d’évacuation
+            evacuationProvider: Vecteur d'évacuation
+            provider: Source
+
 form:
+    event:
+        date: Date
+        description: Rapport public
+        privateDescription: Rapport interne
+        rescueWithNoCare: Demande d'intervention sans soin
     rescue:
         time: Heure de l'intervention
         type: Type de l'intervention

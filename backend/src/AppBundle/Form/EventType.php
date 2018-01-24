@@ -17,13 +17,12 @@ class EventType extends AbstractType
                 'placeholder' => 'jj/mm/aaaa',
             ])
             ->add('description', 'textarea', [
-                'label' => 'Rapport publique',
                 'required' => false,
             ])
             ->add('privateDescription', 'textarea', [
-                'label' => 'Rapport interne',
                 'required' => false,
             ])
+            ->add('rescueWithNoCare');
         ;
     }
 
@@ -31,6 +30,7 @@ class EventType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Event::class,
+            'label_format' => 'form.event.%name%'
         ]);
     }
 

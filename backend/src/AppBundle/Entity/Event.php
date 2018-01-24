@@ -42,6 +42,12 @@ class Event
      */
     private $rescues;
 
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $rescueWithNoCare = 0;
+
     public function __construct()
     {
         $this->date = new \DateTime();
@@ -122,6 +128,22 @@ class Event
     public function setRescues($rescues)
     {
         $this->rescues = $rescues;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRescueWithNoCare()
+    {
+        return $this->rescueWithNoCare;
+    }
+
+    /**
+     * @param $count int
+     */
+    public function setRescueWithNoCare($count)
+    {
+        $this->rescueWithNoCare = $count;
     }
 
     public function countTransport()

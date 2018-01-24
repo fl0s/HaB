@@ -46,80 +46,79 @@
     {% for event in events %}
         <div style="page-break-inside:avoid;">
             <h2>Poste du {{ event.date | date('d/m/Y') }}</h2>
-            <p>La Protection Civile a réalisé {{ event.rescues | length }} intervention{{ (event.rescues | length) > 1 ? 's' : '' }} et {{ event.countTransport }} évacuation{{ (event.countTransport | length) > 1 ? 's' : '' }}.</p>
+            <p>
+                La Protection Civile a réalisé {{ 'event.print.rescue'|transchoice(event.rescues|length) }} et {{ 'event.print.evacuation'|transchoice(event.countTransport) }}.<br>
+                {% if event.rescueWithNoCare %}
+                    {{ 'event.print.rescueWithNoCare'|transchoice(event.rescueWithNoCare) }}
+                {% endif %}
+            </p>
             {% if event.description %}
                 <p>{{ event.description|nl2br }}</p>
             {% endif %}
             {% if private %}
                 <p class="private-description">{{ event.privateDescription|nl2br }}</p>
             {% endif %}
-            <h3>Répartition des interventions par sources </h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Source</th>
-                        <th>Nombre d’intervention</th>
-                        <th>Nombre d’évacuation</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for stat in event.getProviderStat %}
-                    <tr>
-                        <td>{{ stat.provider.name }}</td>
-                        <td>{{ stat.rescue }}</td>
-                        <td>{{ stat.transport }}</td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="3">Aucune intervention ce jour-là</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-            <h3>Répartition des interventions par type</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Source</th>
-                        <th>Nombre d’intervention</th>
-                        <th>Nombre d’évacuation</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for stat in event.getTypeStat %}
-                    <tr>
-                        <td>{{ stat.type.name }}</td>
-                        <td>{{ stat.rescue }}</td>
-                        <td>{{ stat.transport }}</td>
-                    </tr>
-                    {% else %}
+            {% if event.getProviderStat|length %}
+                <h3>Répartition des interventions par sources </h3>
+                <table>
+                    <thead>
                         <tr>
-                            <td colspan="3">Aucune intervention ce jour-là</td>
+                            <th>{{ 'event.print.column.provider'|trans }}</th>
+                            <th>{{ 'event.print.column.rescueCount'|trans }}</th>
+                            <th>{{ 'event.print.column.evacuationCount'|trans }}</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <h3>Répartition des interventions par vecteur d'évacuation</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Vecteur d'évacuation</th>
-                        <th>Nombre d’évacuation</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for stat in event.getEvacuationStat %}
+                    </thead>
+                    <tbody>
+                    {% for stat in event.getProviderStat %}
                         <tr>
                             <td>{{ stat.provider.name }}</td>
+                            <td>{{ stat.rescue }}</td>
                             <td>{{ stat.transport }}</td>
                         </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="3">Aucune intervention ce jour-là</td>
-                        </tr>
                     {% endfor %}
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            {% endif %}
+            {% if event.getTypeStat|length %}
+                <h3>Répartition des interventions par type</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ 'event.print.column.type'|trans }}</th>
+                            <th>{{ 'event.print.column.rescueCount'|trans }}</th>
+                            <th>{{ 'event.print.column.evacuationCount'|trans }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stat in event.getTypeStat %}
+                        <tr>
+                            <td>{{ stat.type.name }}</td>
+                            <td>{{ stat.rescue }}</td>
+                            <td>{{ stat.transport }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+            {% if event.getEvacuationStat|length %}
+                <h3>Répartition des interventions par vecteur d'évacuation</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ 'event.print.column.evacuationProvider'|trans }}</th>
+                            <th>{{ 'event.print.column.evacuationCount'|trans }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stat in event.getEvacuationStat %}
+                            <tr>
+                                <td>{{ stat.provider.name }}</td>
+                                <td>{{ stat.transport }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
         </div>
     {% endfor %}
 </body>
