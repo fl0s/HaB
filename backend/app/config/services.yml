@@ -3,6 +3,10 @@ services:
         class: AppBundle\Service\EventsReportGenerator
         arguments: ["%kernel.root_dir%", "@twig", "@knp_snappy.pdf"]
 
+    app.summary_report_generator:
+        class: AppBundle\Service\SummaryReportGenerator
+        arguments: ["%kernel.root_dir%", "@twig", "@knp_snappy.pdf"]
+
     app.listener.change_password:
         class: AppBundle\EventListener\PasswordChangeRedirectListener
         arguments: ['@router']

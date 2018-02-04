@@ -19,6 +19,9 @@
                 </div>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary">Editer</button>
+                    <a href="{{ path('event-delete', {'id': event.id}) }}" class="btn btn-danger pull-right">
+                        <i class="fa fa-trash"></i> {{ 'common.delete'|trans }}
+                    </a>
                 </div>
             </form>
         </div>

@@ -1,3 +1,6 @@
+common:
+    delete: Supprimer
+
 event:
     print:
         evacuation: "[0,1] %count% évacuation|]1,Inf[ %count% évacuations"
@@ -34,3 +37,6 @@ form:
 log:
     user_login: Connexion de l'utilisateur à la plateforme.
     report_print: Impression d'un rapport
+
+report:
+    summary: Bilan

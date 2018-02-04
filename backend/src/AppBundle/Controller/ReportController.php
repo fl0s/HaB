@@ -31,7 +31,11 @@ class ReportController extends Controller
 
         $private = $this->isGranted('ROLE_ADMIN') && $request->query->has('private');
 
-        $pdf = $this->get('app.report_generator')->generateFromEvents($events, $private);
+        if ($request->query->has('summary')) {
+            $pdf = $this->get('app.summary_report_generator')->generateFromEvents($events, $startDate, $endDate);
+        } else {
+            $pdf = $this->get('app.report_generator')->generateFromEvents($events, $private);
+        }
 
         $this->get('event_dispatcher')->dispatch(ReportEvent::PRINT_REPORT, new ReportEvent($this->getUser()));
 

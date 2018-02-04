@@ -20,6 +20,9 @@
                 </div>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary">Editer</button>
+                    <a href="{{ path('rescue-delete', {'id': rescue.id}) }}" class="btn btn-danger pull-right">
+                        <i class="fa fa-trash"></i> {{ 'common.delete'|trans }}
+                    </a>
                 </div>
             </form>
         </div>

@@ -1,0 +1,114 @@
+<html>
+<head>
+    <title>Bilan D'activité</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        body {
+            margin: 5%;
+        }
+        * {
+            font-family: Arial, serif;
+        }
+        h1 {
+            color: #FFFFFF;
+            background-color: #004080;
+            padding: 10px;
+            text-align: center;
+            font-family: Poppins, serif;
+        }
+        h2 {
+            color: #004080;
+            border-bottom: #004080 solid 1px;
+            font-family: Poppins, serif;
+        }
+        h3 {
+            color: #F08700;
+            margin-bottom: 5px;
+            font-family: Poppins, serif;
+        }
+        table {
+            margin: auto;
+            width: 80%;
+            border-collapse: collapse;
+        }
+        td, th {
+            border: solid 1px #000;
+        }
+        .private-description {
+            padding-left: 5px;
+            border-left: 1px #F08700 solid;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bilan des activités au Hangar à Bananes</h1>
+    <p>Dans le cadre de l’expérimentation des postes de secours au Hangar à Bananes, un suivi des activités est réalisé avec une répartition par émetteurs et par types.</p>
+    <div style="page-break-inside:avoid;">
+        <h2>Bilan entre le {{ start|date('d/m/Y') }} et le {{ end|date('d/m/Y') }}</h2>
+        <p>
+            La Protection Civile a réalisé {{ 'event.print.rescue'|transchoice(eventsSummary.totalRescue) }} et {{ 'event.print.evacuation'|transchoice(eventsSummary.evacuation) }}.<br>
+        </p>
+        {% if eventsSummary.providerStat|length %}
+            <h3>Répartition des interventions par sources </h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{ 'event.print.column.provider'|trans }}</th>
+                        <th>{{ 'event.print.column.rescueCount'|trans }}</th>
+                        <th>{{ 'event.print.column.evacuationCount'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for stat in eventsSummary.providerStat %}
+                    <tr>
+                        <td>{{ stat.provider.name }}</td>
+                        <td>{{ stat.rescue }}</td>
+                        <td>{{ stat.transport }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        {% if eventsSummary.typeStat|length %}
+            <h3>Répartition des interventions par type</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{ 'event.print.column.type'|trans }}</th>
+                        <th>{{ 'event.print.column.rescueCount'|trans }}</th>
+                        <th>{{ 'event.print.column.evacuationCount'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stat in eventsSummary.typeStat %}
+                    <tr>
+                        <td>{{ stat.type.name }}</td>
+                        <td>{{ stat.rescue }}</td>
+                        <td>{{ stat.transport }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        {% if eventsSummary.evacuationStat|length %}
+            <h3>Répartition des interventions par vecteur d'évacuation</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{ 'event.print.column.evacuationProvider'|trans }}</th>
+                        <th>{{ 'event.print.column.evacuationCount'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stat in eventsSummary.evacuationStat %}
+                        <tr>
+                            <td>{{ stat.provider.name }}</td>
+                            <td>{{ stat.transport }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</body>
+</html>

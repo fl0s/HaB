@@ -2,9 +2,10 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Model\EventsSummary;
 use Knp\Snappy\GeneratorInterface;
 
-class EventsReportGenerator
+class SummaryReportGenerator
 {
     private $rootDir;
     private $twig;
@@ -17,11 +18,14 @@ class EventsReportGenerator
         $this->pdfGenerator = $pdfGenerator;
     }
 
-    public function generateFromEvents(array $events, $private = false)
+    public function generateFromEvents(array $events, \DateTime $start, \DateTime $end)
     {
-        $html = $this->twig->render('event/print.html.twig', [
-            'events' => $events,
-            'private' => $private,
+        $eventsSummary = new EventsSummary($events);
+
+        $html = $this->twig->render('report/summary.html.twig', [
+            'eventsSummary' => $eventsSummary,
+            'start' => $start,
+            'end' => $end,
         ]);
 
         $baseDir = $this->rootDir . '/../web';
